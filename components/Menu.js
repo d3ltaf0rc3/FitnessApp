@@ -7,10 +7,12 @@ const Menu = (props) => {
         <View style={styles.container}>
             <CloseIcon style={styles.btn} onPress={props.handleClick} name="close-outline" color="#fff" size={40} />
             <View style={styles["link-container"]}>
+                <Text style={styles.link}>Login</Text>
+                <Text style={styles.link}>Register</Text>
                 <Text style={styles.link}>Home</Text>
-                <Text style={styles.link}>Profile</Text>
-                <Text style={styles.link}>Workouts</Text>
-                <Text style={styles.link}>Settings</Text>
+                <Text style={styles.link}>All Workouts</Text>
+                <Text style={styles.link}>Add a workout</Text>
+                <Text style={styles.link}>Logout</Text>
             </View>
         </View>
     )
