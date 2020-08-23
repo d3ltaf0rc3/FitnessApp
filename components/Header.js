@@ -1,5 +1,5 @@
 import React, { useState, Fragment } from 'react';
-import { View, Text, StyleSheet } from 'react-native';
+import { View, Text, StyleSheet, Dimensions } from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons';
 import Menu from './Menu';
 
@@ -20,6 +20,7 @@ const Header = (props) => {
 const styles = StyleSheet.create({
     header: {
         height: 60,
+        width: Dimensions.get('window').width,
         padding: 15,
         backgroundColor: "#20639b",
         display: "flex",

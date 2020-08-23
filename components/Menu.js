@@ -6,7 +6,7 @@ const Menu = (props) => {
     return (
         <View style={styles.container}>
             <CloseIcon style={styles.btn} onPress={props.handleClick} name="close-outline" color="#fff" size={40} />
-            <View style={styles["link-container"]}>
+            <View style={styles.linkContainer}>
                 <Text style={styles.link}>Login</Text>
                 <Text style={styles.link}>Register</Text>
                 <Text style={styles.link}>Home</Text>
@@ -39,7 +39,7 @@ const styles = StyleSheet.create({
         color: "#fff",
         fontSize: 20
     },
-    "link-container": {
+    linkContainer: {
         marginTop: 70,
         textAlign: "center"
     }
