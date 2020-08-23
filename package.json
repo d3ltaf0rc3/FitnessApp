@@ -15,6 +15,7 @@
   },
   "dependencies": {
     "@react-native-community/checkbox": "^0.5.0",
+    "@react-native-community/picker": "^1.6.6",
     "@react-native-firebase/app": "^8.3.1",
     "@react-native-firebase/auth": "^9.0.0",
     "@react-native-firebase/firestore": "^7.5.3",
