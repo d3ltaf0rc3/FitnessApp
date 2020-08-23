@@ -14,8 +14,8 @@ const ExerciseDropdown = () => {
             <SetComponent />
             <SetComponent />
             <View style={styles.newSetContainer}>
-                <TextInput placeholder="Reps..." style={styles.input} />
-                <TextInput placeholder="Weight..." style={styles.input} />
+                <TextInput placeholderTextColor="#101010" placeholder="Reps..." style={styles.input} />
+                <TextInput placeholderTextColor="#101010" placeholder="Weight..." style={styles.input} />
                 <Icon onPress={handlePress} name="add-outline" color="#fff" size={32} />
             </View>
         </View>
@@ -35,7 +35,8 @@ const styles = StyleSheet.create({
         width: 80,
         height: 30,
         padding: 5,
-        borderRadius: 5
+        borderRadius: 5,
+        color: "#fff"
     },
     newSetContainer: {
         flexDirection: "row",

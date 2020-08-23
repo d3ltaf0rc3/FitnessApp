@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { View, Text, StyleSheet, TextInput, TouchableOpacity } from 'react-native';
-import Header from '../components/Header';
+import Wrapper from '../components/Wrapper';
 
 const RegisterScreen = () => {
     const [username, setUsername] = useState("");
@@ -12,8 +12,7 @@ const RegisterScreen = () => {
     };
 
     return (
-        <View style={styles.container}>
-            <Header title="Register" />
+        <Wrapper title="Register">
             <View style={styles.form}>
                 <Text style={styles.label}>Username</Text>
                 <TextInput
@@ -36,17 +35,12 @@ const RegisterScreen = () => {
                     <Text style={styles.btn}>Register</Text>
                 </TouchableOpacity>
             </View>
-        </View>
+        </Wrapper>
     )
 };
 
 const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        backgroundColor: "#212121"
-    },
     form: {
-        alignItems: "center",
         marginTop: 50
     },
     input: {

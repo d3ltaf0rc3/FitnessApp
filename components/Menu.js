@@ -1,11 +1,11 @@
 import React from 'react';
 import { View, Text, StyleSheet } from 'react-native';
-import CloseIcon from 'react-native-vector-icons/Ionicons';
+import Icon from 'react-native-vector-icons/Ionicons';
 
 const Menu = (props) => {
     return (
         <View style={styles.container}>
-            <CloseIcon style={styles.btn} onPress={props.handleClick} name="close-outline" color="#fff" size={40} />
+            <Icon style={styles.btn} onPress={props.handleClick} name="close-outline" color="#fff" size={40} />
             <View style={styles.linkContainer}>
                 <Text style={styles.link}>Login</Text>
                 <Text style={styles.link}>Register</Text>

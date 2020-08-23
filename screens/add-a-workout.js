@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 import { View, StyleSheet, Text, TouchableOpacity } from 'react-native';
-import Header from '../components/Header';
+import Wrapper from '../components/Wrapper';
 import { Picker } from "@react-native-community/picker";
+import Icon from 'react-native-vector-icons/Ionicons';
 
 const AddAWorkoutScreen = () => {
     const [type, setType] = useState();
@@ -12,14 +13,13 @@ const AddAWorkoutScreen = () => {
     };
 
     return (
-        <View style={styles.container}>
-            <Header title="Add a workout" />
+        <Wrapper title="Add a workout">
             <View style={styles.innerContainer}>
                 <Text style={styles.text}>Choose a workout type:</Text>
                 <Picker
                     selectedValue={type}
                     style={styles.picker}
-                    onValueChange={(itemValue, itemIndex) =>
+                    onValueChange={itemValue =>
                         setType(itemValue)
                     }>
                     <Picker.Item label="Back workout" value="Back" />
@@ -33,25 +33,20 @@ const AddAWorkoutScreen = () => {
                 <Text style={styles.date}>{date}</Text>
             </View>
             <TouchableOpacity style={styles.btn} onPress={handlePress}>
-                <Text style={styles.text}>Done</Text>
+                <Icon name="add-circle-outline" color="#fff" size={32} />
+                <Text style={styles.text}>Add</Text>
             </TouchableOpacity>
-        </View>
+        </Wrapper>
     )
 };
 
 const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        backgroundColor: "#212121",
-        display: "flex",
-        alignItems: "center"
-    },
     picker: {
         height: 40,
-        width: 180,
+        width: 250,
         marginVertical: 10,
         backgroundColor: "#797979",
-        color: "#fff"
+        color: "#fff",
     },
     text: {
         color: "#fff",
@@ -62,17 +57,18 @@ const styles = StyleSheet.create({
         fontSize: 30
     },
     innerContainer: {
-        marginTop: 30,
+        marginTop: 50,
         alignItems: "center"
     },
     btn: {
+        flexDirection: "row",
         marginTop: 50,
         backgroundColor: "#20639b",
         width: 200,
         height: 50,
         alignItems: "center",
         justifyContent: "center",
-        borderRadius: 5
+        borderRadius: 10
     }
 })
 

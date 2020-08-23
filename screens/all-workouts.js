@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { View, StyleSheet, TouchableOpacity, Text } from 'react-native';
-import Header from '../components/Header';
+import Wrapper from '../components/Wrapper';
 import AllWorkoutsList from '../components/AllWorkoutsList';
 import Filter from '../components/Filter';
 
@@ -11,14 +11,9 @@ const AllWorkoutsScreen = () => {
     const [toggleGlutes, setToggleGlutes] = useState(false);
     const [toggleHamstrings, setToggleHamstrings] = useState(false);
 
-    const handlePress = () => {
-        setFilters(!filters);
-    };
-
     return (
-        <View style={styles.container}>
-            <Header title="All workouts" />
-            <TouchableOpacity style={styles.btn} onPress={handlePress}>
+        <Wrapper title="All workouts">
+            <TouchableOpacity style={styles.btn} onPress={() => setFilters(!filters)}>
                 <Text style={styles.text}>{filters ? "Hide filters" : "Show filters"}</Text>
             </TouchableOpacity>
             {filters && (
@@ -42,17 +37,11 @@ const AllWorkoutsScreen = () => {
                 </View>
             )}
             <AllWorkoutsList />
-        </View>
+        </Wrapper>
     )
 };
 
 const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        backgroundColor: "#212121",
-        display: "flex",
-        alignItems: "center"
-    },
     btn: {
         backgroundColor: "#20639b",
         borderRadius: 3,
@@ -65,7 +54,7 @@ const styles = StyleSheet.create({
         fontSize: 18
     },
     filtersContainer: {
-        alignItems: "center",
+        alignItems: "flex-end",
         marginTop: 10,
         padding: 15,
         borderColor: "#fff",

@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text, StyleSheet, FlatList, SafeAreaView } from 'react-native';
+import { View, Text, StyleSheet, FlatList } from 'react-native';
 import Workout from './Workout';
 
 const WorkoutsList = () => {
@@ -7,12 +7,11 @@ const WorkoutsList = () => {
     return (
         <View style={styles.container}>
             <Text style={styles.heading}>Your last 7 workouts</Text>
-            <View style={styles.dataContainer}>
-                <FlatList
-                    data={data}
-                    renderItem={Workout}
-                    keyExtractor={item => item.id} />
-            </View>
+            <FlatList
+                style={styles.dataContainer}
+                data={data}
+                renderItem={Workout}
+                keyExtractor={item => item.id} />
         </View>
     )
 };
@@ -26,7 +25,7 @@ const styles = StyleSheet.create({
         fontSize: 30
     },
     dataContainer: {
-        paddingBottom: 250
+        marginBottom: 170
     }
 });
 

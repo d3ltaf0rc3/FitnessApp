@@ -23,7 +23,6 @@ const styles = StyleSheet.create({
         width: Dimensions.get('window').width,
         padding: 15,
         backgroundColor: "#20639b",
-        display: "flex",
         flexDirection: "row"
     },
     text: {
