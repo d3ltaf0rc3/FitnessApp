@@ -2,12 +2,12 @@ import React, { useState } from 'react';
 import { View, Text, StyleSheet, TextInput, TouchableOpacity } from 'react-native';
 import Wrapper from '../components/Wrapper';
 
-const LoginScreen = () => {
+const LoginScreen = (props) => {
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
 
     const handlePress = () => {
-        //fetch
+        props.navigation.navigate("Home");
     };
 
     return (

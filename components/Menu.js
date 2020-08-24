@@ -1,18 +1,21 @@
 import React from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons';
+import { useNavigation } from '@react-navigation/native';
 
 const Menu = (props) => {
+    const navigation = useNavigation();
+
     return (
         <View style={styles.container}>
             <Icon style={styles.btn} onPress={props.handleClick} name="close-outline" color="#fff" size={40} />
             <View style={styles.linkContainer}>
-                <Text style={styles.link}>Login</Text>
-                <Text style={styles.link}>Register</Text>
-                <Text style={styles.link}>Home</Text>
-                <Text style={styles.link}>All Workouts</Text>
-                <Text style={styles.link}>Add a workout</Text>
-                <Text style={styles.link}>Logout</Text>
+                <Text onPress={() => navigation.navigate("Login")} style={styles.link}>Login</Text>
+                <Text onPress={() => navigation.navigate("Register")} style={styles.link}>Register</Text>
+                <Text onPress={() => navigation.navigate("Home")} style={styles.link}>Home</Text>
+                <Text onPress={() => navigation.navigate("All workouts")} style={styles.link}>All Workouts</Text>
+                <Text onPress={() => navigation.navigate("Add a workout")} style={styles.link}>Add a workout</Text>
+                <Text onPress={() => navigation.navigate("Login")} style={styles.link}>Logout</Text>
             </View>
         </View>
     )

@@ -1,8 +1,10 @@
 import React from 'react';
 import { View, Text, StyleSheet, FlatList } from 'react-native';
 import Workout from './Workout';
+import { useNavigation } from '@react-navigation/native';
 
 const AllWorkoutsList = () => {
+    const navigation = useNavigation();
     const data = [{ id: "1" }, { id: "2" }, { id: "3" }, { id: "4" }, { id: "5" }, { id: "6" }, { id: "7" }];
     return (
         <View style={styles.container}>
@@ -10,7 +12,7 @@ const AllWorkoutsList = () => {
             <View style={styles.dataContainer}>
                 <FlatList
                     data={data}
-                    renderItem={Workout}
+                    renderItem={() => <Workout navigation={navigation} />}
                     keyExtractor={item => item.id} />
             </View>
         </View>

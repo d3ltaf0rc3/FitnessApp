@@ -1,9 +1,9 @@
 import React from 'react';
 import { View, Image, Text, TouchableOpacity, StyleSheet } from 'react-native';
 
-const Workout = () => {
+const Workout = (props) => {
     const handlePress = () => {
-
+        props.navigation.navigate("View details");
     };
 
     return (

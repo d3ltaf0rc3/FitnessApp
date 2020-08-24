@@ -4,12 +4,12 @@ import Wrapper from '../components/Wrapper';
 import { Picker } from "@react-native-community/picker";
 import Icon from 'react-native-vector-icons/Ionicons';
 
-const AddAWorkoutScreen = () => {
+const AddAWorkoutScreen = (props) => {
     const [type, setType] = useState();
     const date = (new Date()).toISOString().substring(0, 10);
 
     const handlePress = () => {
-
+        props.navigation.navigate("All workouts");
     };
 
     return (

@@ -4,16 +4,16 @@ import Wrapper from '../components/Wrapper';
 import Icon from 'react-native-vector-icons/Ionicons';
 import WorkoutsList from '../components/WorkoutsList';
 
-const HomeScreen = () => {
+const HomeScreen = (props) => {
     const handlePress = () => {
-
+        props.navigation.navigate("Add a workout");
     };
 
     return (
         <Wrapper title="Home">
             <Text style={styles.greeting}>Hello, Martin</Text>
             <TouchableOpacity onPress={handlePress} style={styles.addWorkoutContainer}>
-                <Icon name="add-circle-outline" color="#fff" size={30}/>
+                <Icon name="add-circle-outline" color="#fff" size={30} />
                 <Text style={styles.text}>Add a workout</Text>
             </TouchableOpacity>
             <WorkoutsList />
