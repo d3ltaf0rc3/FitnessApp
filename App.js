@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import LoginScreen from './screens/login';
@@ -7,21 +7,43 @@ import HomeScreen from './screens/home';
 import AllWorkoutsScreen from './screens/all-workouts';
 import AddAWorkoutScreen from './screens/add-a-workout';
 import ViewDetailsScreen from './screens/view-details';
+import UserContext from './contexts/user-context';
+import context from './contexts/user-context';
 
 const Stack = createStackNavigator();
 
 const App = () => {
+  const [user, setUser] = useState(null);
+
+  const logIn = (user) => {
+    setUser(user);
+  };
+  const logOut = () => {
+    setUser(null);
+  };
+
   return (
-    <NavigationContainer>
-      <Stack.Navigator screenOptions={{ headerShown: false }} initialRouteName="Login">
-        <Stack.Screen name="Home" component={HomeScreen} />
-        <Stack.Screen name="Login" component={LoginScreen} />
-        <Stack.Screen name="Register" component={RegisterScreen} />
-        <Stack.Screen name="All workouts" component={AllWorkoutsScreen} />
-        <Stack.Screen name="Add a workout" component={AddAWorkoutScreen} />
-        <Stack.Screen name="View details" component={ViewDetailsScreen} />
-      </Stack.Navigator>
-    </NavigationContainer>
+    <UserContext.Provider value={{
+      user,
+      logIn,
+      logOut
+    }}>
+      <NavigationContainer>
+        <Stack.Navigator screenOptions={{ headerShown: false }} initialRouteName={context.user ? "Home" : "Login"}>
+          {user ?
+            <>
+              <Stack.Screen name="Home" component={HomeScreen} />
+              <Stack.Screen name="All workouts" component={AllWorkoutsScreen} />
+              <Stack.Screen name="Add a workout" component={AddAWorkoutScreen} />
+              <Stack.Screen name="View details" component={ViewDetailsScreen} />
+            </> :
+            <>
+              <Stack.Screen name="Login" component={LoginScreen} />
+              <Stack.Screen name="Register" component={RegisterScreen} />
+            </>}
+        </Stack.Navigator>
+      </NavigationContainer>
+    </UserContext.Provider>
   )
 };
 

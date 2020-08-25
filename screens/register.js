@@ -1,23 +1,49 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import { View, Text, StyleSheet, TextInput, TouchableOpacity } from 'react-native';
 import Wrapper from '../components/Wrapper';
+import UserContext from '../contexts/user-context';
+import auth from '@react-native-firebase/auth';
+import ErrorComponent from '../components/Error';
 
 const RegisterScreen = (props) => {
-    const [username, setUsername] = useState("");
+    const context = useContext(UserContext);
+    const [error, setError] = useState(null);
+    const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [rePassword, setRePassword] = useState("");
 
     const handlePress = () => {
-        props.navigation.navigate("Home");
+        if (rePassword === password) {
+            auth()
+                .createUserWithEmailAndPassword(email, password)
+                .then((user) => {
+                    context.logIn(user);
+                    props.navigation.navigate("Home");
+                })
+                .catch(error => {
+                    if (error.code === 'auth/email-already-in-use') {
+                        setError('That email address is already in use!');
+                    }
+
+                    if (error.code === 'auth/invalid-email') {
+                        setError('That email address is invalid!');
+                    }
+
+                    setError(error);
+                });
+        } else {
+            setError("Both passwords must match!");
+        }
     };
 
     return (
         <Wrapper title="Register">
             <View style={styles.form}>
-                <Text style={styles.label}>Username</Text>
+                {error ? <ErrorComponent error={error} /> : null}
+                <Text style={styles.label}>Email</Text>
                 <TextInput
-                    placeholder="Username..."
-                    onChangeText={text => setUsername(text)}
+                    placeholder="Email..."
+                    onChangeText={text => setEmail(text)}
                     style={styles.input} />
                 <Text style={styles.label}>Password</Text>
                 <TextInput
