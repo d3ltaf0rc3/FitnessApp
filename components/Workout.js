@@ -7,7 +7,7 @@ const Workout = (props) => {
     }
     const date = props.item.createdAt.toDate().toISOString().split("T")[0];
     const handlePress = () => {
-        props.navigation.navigate("View details");
+        props.navigation.navigate("View details", { item: props.item });
     };
 
     return (

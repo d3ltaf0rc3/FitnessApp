@@ -4,8 +4,9 @@ import Wrapper from '../components/Wrapper';
 import Exercise from '../components/Exercise';
 import Icon from 'react-native-vector-icons/Ionicons';
 
-const ViewDetailsScreen = () => {
-    const data = [{ id: "1" }, { id: "2" }, { id: "3" }, { id: "4" }, { id: "5" }, { id: "6" }, { id: "7" }];
+const ViewDetailsScreen = (props) => {
+    const item = props.route.params.item;
+    const date = props.route.params.item.createdAt.toDate().toISOString().split("T")[0];
 
     const deleteWorkout = () => {
 
@@ -18,12 +19,12 @@ const ViewDetailsScreen = () => {
     return (
         <ScrollView style={styles.container}>
             <Wrapper title="View Details">
-                <Text style={styles.text}>Back workout</Text>
+                <Text style={styles.text}>{item.type} workout</Text>
                 <Image
                     style={styles.image}
-                    source={{ uri: "https://naturalsteroidalternatives.com/wp-content/uploads/2019/02/beginners-back-workout.jpg" }} />
+                    source={{ uri: item.image }} />
                 <Text style={styles.heading}>Date:</Text>
-                <Text style={styles.date}>23-8-20</Text>
+                <Text style={styles.date}>{date}</Text>
                 <View>
                     <Text style={styles.heading}>Add an exercise</Text>
                     <View style={styles.addContainer}>
@@ -32,8 +33,9 @@ const ViewDetailsScreen = () => {
                     </View>
                 </View>
                 <View>
-                    <Text style={styles.heading}>Exercises</Text>
-                    {data.map(item => <Exercise key={item.id} />)}
+                    <Text style={styles.heading}>{props.route.params.item.exercises.length === 0 ?
+                        "No exercises to list" : "Exercises"}</Text>
+                    {props.route.params.item.exercises.map(item => <Exercise key={item.id} />)}
                 </View>
                 <TouchableOpacity onPress={deleteWorkout} style={styles.btn}>
                     <Icon name="trash-outline" color="#fff" size={16} />
