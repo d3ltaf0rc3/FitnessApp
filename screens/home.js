@@ -1,17 +1,19 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { StyleSheet, Text, TouchableOpacity } from 'react-native';
 import Wrapper from '../components/Wrapper';
 import Icon from 'react-native-vector-icons/Ionicons';
 import WorkoutsList from '../components/WorkoutsList';
+import UserContext from '../contexts/user-context';
 
 const HomeScreen = (props) => {
+    const context = useContext(UserContext);
     const handlePress = () => {
         props.navigation.navigate("Add a workout");
     };
 
     return (
         <Wrapper title="Home">
-            <Text style={styles.greeting}>Hello, Martin</Text>
+            <Text style={styles.greeting}>Hello, {context.user.user.email}</Text>
             <TouchableOpacity onPress={handlePress} style={styles.addWorkoutContainer}>
                 <Icon name="add-circle-outline" color="#fff" size={30} />
                 <Text style={styles.text}>Add a workout</Text>
