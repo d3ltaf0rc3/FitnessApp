@@ -2,6 +2,10 @@ import React from 'react';
 import { View, Image, Text, TouchableOpacity, StyleSheet } from 'react-native';
 
 const Workout = (props) => {
+    if (!props.item.createdAt) {
+        return <View></View>
+    }
+    const date = props.item.createdAt.toDate().toISOString().split("T")[0];
     const handlePress = () => {
         props.navigation.navigate("View details");
     };
@@ -10,9 +14,9 @@ const Workout = (props) => {
         <View style={styles.container}>
             <Image
                 style={styles.image}
-                source={{ uri: "https://naturalsteroidalternatives.com/wp-content/uploads/2019/02/beginners-back-workout.jpg" }} />
-            <Text style={styles.text}>Back workout</Text>
-            <Text style={styles.text}>Date: 22.08.20</Text>
+                source={{ uri: props.item.image }} />
+            <Text style={styles.text}>{props.item.type} workout</Text>
+            <Text style={styles.text}>Date: {date}</Text>
             <TouchableOpacity onPress={handlePress} style={styles.button}>
                 <Text style={styles.text}>View Details</Text>
             </TouchableOpacity>

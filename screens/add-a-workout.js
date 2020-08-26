@@ -1,15 +1,33 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { View, StyleSheet, Text, TouchableOpacity } from 'react-native';
 import Wrapper from '../components/Wrapper';
 import { Picker } from "@react-native-community/picker";
 import Icon from 'react-native-vector-icons/Ionicons';
+import firestore from '@react-native-firebase/firestore';
 
 const AddAWorkoutScreen = (props) => {
-    const [type, setType] = useState();
-    const date = (new Date()).toISOString().substring(0, 10);
+    const [type, setType] = useState("Back");
+    const [image, setImage] = useState("https://i.imgur.com/QKit3gt.jpg");
+    const date = new Date().toISOString().split("T")[0];
+    const images = {
+        Back: "https://i.imgur.com/QKit3gt.jpg",
+        Chest: "https://i.imgur.com/Irz3q6x.jpg",
+        Glutes: "https://i.imgur.com/5mndGWy.jpg",
+        Hamstrings: "https://i.imgur.com/k0vCrPh.jpg",
+    };
 
     const handlePress = () => {
-        props.navigation.navigate("All workouts");
+        firestore()
+            .collection('workouts')
+            .add({
+                type,
+                createdAt: firestore.FieldValue.serverTimestamp(),
+                exercises: [],
+                image
+            })
+            .then(() => {
+                props.navigation.navigate("All workouts");
+            });
     };
 
     return (
@@ -19,9 +37,10 @@ const AddAWorkoutScreen = (props) => {
                 <Picker
                     selectedValue={type}
                     style={styles.picker}
-                    onValueChange={itemValue =>
-                        setType(itemValue)
-                    }>
+                    onValueChange={itemValue => {
+                        setType(itemValue);
+                        setImage(images[itemValue])
+                    }}>
                     <Picker.Item label="Back workout" value="Back" />
                     <Picker.Item label="Chest workout" value="Chest" />
                     <Picker.Item label="Glutes workout" value="Glutes" />

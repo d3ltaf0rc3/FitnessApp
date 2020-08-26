@@ -1,20 +1,52 @@
-import React from 'react';
-import { View, Text, StyleSheet, FlatList } from 'react-native';
+import React, { useState, useEffect } from 'react';
+import { View, Text, StyleSheet, FlatList, ActivityIndicator } from 'react-native';
 import Workout from './Workout';
 import { useNavigation } from '@react-navigation/native';
+import firestore from '@react-native-firebase/firestore';
 
 const AllWorkoutsList = () => {
     const navigation = useNavigation();
-    const data = [{ id: "1" }, { id: "2" }, { id: "3" }, { id: "4" }, { id: "5" }, { id: "6" }, { id: "7" }];
+    const [loading, setLoading] = useState(true);
+    const [workouts, setWorkouts] = useState([]);
+
+    useEffect(() => {
+        const subscriber = firestore()
+            .collection('workouts')
+            .orderBy("createdAt", "desc")
+            .onSnapshot(querySnapshot => {
+                const workouts = [];
+
+                querySnapshot.forEach(documentSnapshot => {
+                    workouts.push({
+                        ...documentSnapshot.data(),
+                        key: documentSnapshot.id,
+                    });
+                });
+
+                setWorkouts(workouts);
+                setLoading(false);
+            });
+
+        return () => subscriber();
+    }, []);
+
+    if (loading) {
+        return <ActivityIndicator />
+    }
+
     return (
         <View style={styles.container}>
-            <Text style={styles.heading}>All of your workouts</Text>
-            <View style={styles.dataContainer}>
-                <FlatList
-                    data={data}
-                    renderItem={() => <Workout navigation={navigation} />}
-                    keyExtractor={item => item.id} />
-            </View>
+            {workouts.length !== 0 ?
+                <>
+                    <Text style={styles.heading}>All of your workouts</Text>
+                    <View style={styles.dataContainer}>
+                        <FlatList
+                            data={workouts}
+                            renderItem={(item) => <Workout item={item.item} navigation={navigation} />}
+                            keyExtractor={item => item.key} />
+                    </View>
+                </> :
+                <Text style={styles.heading}>No workouts to display</Text>}
         </View>
     )
 };
