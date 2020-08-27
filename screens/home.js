@@ -18,7 +18,7 @@ const HomeScreen = (props) => {
                 <Icon name="add-circle-outline" color="#fff" size={30} />
                 <Text style={styles.text}>Add a workout</Text>
             </TouchableOpacity>
-            <WorkoutsList />
+            <WorkoutsList type="some"/>
         </Wrapper>
     )
 };

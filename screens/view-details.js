@@ -1,73 +1,89 @@
-import React from 'react';
-import { View, StyleSheet, Image, Text, TouchableOpacity, ScrollView, TextInput, Dimensions } from 'react-native';
+import React, { useState, useEffect } from 'react';
+import { View, StyleSheet, Text, TouchableOpacity, ScrollView, TextInput, Dimensions } from 'react-native';
+import firestore from '@react-native-firebase/firestore';
+import Icon from 'react-native-vector-icons/Ionicons';
 import Wrapper from '../components/Wrapper';
 import Exercise from '../components/Exercise';
-import Icon from 'react-native-vector-icons/Ionicons';
+import DetailsHeader from '../components/DetailsHeader';
+import WorkoutContext from '../contexts/workout-context';
 
 const ViewDetailsScreen = (props) => {
-    const item = props.route.params.item;
-    const date = props.route.params.item.createdAt.toDate().toISOString().split("T")[0];
+    const [exercise, setExercise] = useState();
+    const [update, setUpdate] = useState(false);
+    const [item, setItem] = useState(props.route.params.item);
+
+    useEffect(() => {
+        firestore()
+            .collection('workouts')
+            .doc(props.route.params.item.key)
+            .get()
+            .then(item => {
+                setItem({ ...item._data, key: props.route.params.item.key });
+            });
+    }, [update]);
 
     const deleteWorkout = () => {
-
+        firestore()
+            .collection('workouts')
+            .doc(item.key)
+            .delete()
+            .then(() => {
+                props.navigation.goBack();
+            });
     };
 
     const addExercise = () => {
-
+        firestore()
+            .collection('workouts')
+            .doc(item.key)
+            .update({
+                exercises: firestore.FieldValue.arrayUnion({
+                    name: exercise,
+                    sets: ""
+                })
+            })
+            .then(() => {
+                setExercise("");
+                setUpdate(!update);
+            });
     };
 
     return (
-        <ScrollView style={styles.container}>
-            <Wrapper title="View Details">
-                <Text style={styles.text}>{item.type} workout</Text>
-                <Image
-                    style={styles.image}
-                    source={{ uri: item.image }} />
-                <Text style={styles.heading}>Date:</Text>
-                <Text style={styles.date}>{date}</Text>
-                <View>
-                    <Text style={styles.heading}>Add an exercise</Text>
-                    <View style={styles.addContainer}>
-                        <TextInput placeholder="Exercise..." style={styles.input} />
-                        <Icon onPress={addExercise} name="arrow-forward-outline" color="#b9bbb6" size={32} />
+        <WorkoutContext.Provider value={{ workout: item, update: () => setUpdate(!update) }}>
+            <ScrollView style={styles.container}>
+                <Wrapper title="View Details">
+                    <DetailsHeader />
+                    <View>
+                        <Text style={styles.heading}>Add an exercise</Text>
+                        <View style={styles.addContainer}>
+                            <TextInput
+                                onChangeText={(value) =>
+                                    setExercise(value)}
+                                value={exercise}
+                                placeholder="Exercise..."
+                                style={styles.input} />
+                            <Icon onPress={addExercise} name="arrow-forward-outline" color="#b9bbb6" size={32} />
+                        </View>
                     </View>
-                </View>
-                <View>
-                    <Text style={styles.heading}>{props.route.params.item.exercises.length === 0 ?
-                        "No exercises to list" : "Exercises"}</Text>
-                    {props.route.params.item.exercises.map(item => <Exercise key={item.id} />)}
-                </View>
-                <TouchableOpacity onPress={deleteWorkout} style={styles.btn}>
-                    <Icon name="trash-outline" color="#fff" size={16} />
-                    <Text style={styles.btnText}>Delete</Text>
-                </TouchableOpacity>
-            </Wrapper>
-        </ScrollView>
+                    <View>
+                        <Text style={styles.heading}>{item.exercises.length === 0 ?
+                            "No exercises to list" : "Exercises"}</Text>
+                        {item.exercises.map((item, index) => <Exercise item={item} key={index} />)}
+                    </View>
+                    <TouchableOpacity onPress={deleteWorkout} style={styles.btn}>
+                        <Icon name="trash-outline" color="#fff" size={16} />
+                        <Text style={styles.btnText}>Delete</Text>
+                    </TouchableOpacity>
+                </Wrapper>
+            </ScrollView>
+        </WorkoutContext.Provider>
     )
 };
 
 const styles = StyleSheet.create({
-    image: {
-        width: 250,
-        height: 250,
-        borderColor: "#fff",
-        borderWidth: 1,
-        borderRadius: 5,
-        marginBottom: 20
-    },
-    text: {
-        color: "#fff",
-        fontSize: 30,
-        marginVertical: 20
-    },
     heading: {
         color: "#fff",
         fontSize: 26
-    },
-    date: {
-        color: "#20639b",
-        fontSize: 24,
-        marginBottom: 20
     },
     btn: {
         marginVertical: 30,

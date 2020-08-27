@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { View, StyleSheet, TouchableOpacity, Text } from 'react-native';
 import Wrapper from '../components/Wrapper';
-import AllWorkoutsList from '../components/AllWorkoutsList';
+import WorkoutsList from '../components/WorkoutsList';
 import Filter from '../components/Filter';
 
 const AllWorkoutsScreen = () => {
@@ -36,7 +36,7 @@ const AllWorkoutsScreen = () => {
                         setToggleCheckBox={setToggleHamstrings} />
                 </View>
             )}
-            <AllWorkoutsList />
+            <WorkoutsList type="all" />
         </Wrapper>
     )
 };

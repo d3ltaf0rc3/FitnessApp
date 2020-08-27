@@ -4,7 +4,7 @@ import Workout from './Workout';
 import { useNavigation } from "@react-navigation/native";
 import firestore from '@react-native-firebase/firestore';
 
-const WorkoutsList = () => {
+const WorkoutsList = (props) => {
     const navigation = useNavigation();
     const [loading, setLoading] = useState(true);
     const [workouts, setWorkouts] = useState([]);
@@ -13,7 +13,6 @@ const WorkoutsList = () => {
         const subscriber = firestore()
             .collection('workouts')
             .orderBy("createdAt", "desc")
-            .limit(7)
             .onSnapshot(querySnapshot => {
                 const workouts = [];
 
@@ -23,13 +22,16 @@ const WorkoutsList = () => {
                         key: documentSnapshot.id,
                     });
                 });
-
-                setWorkouts(workouts);
+                if (props.type === "some") {
+                    setWorkouts(workouts.slice(0,5));
+                } else {
+                    setWorkouts(workouts);
+                }
                 setLoading(false);
             });
 
         return () => subscriber();
-    }, []);
+    }, [props.type]);
 
     if (loading) {
         return <ActivityIndicator />
@@ -37,12 +39,17 @@ const WorkoutsList = () => {
 
     return (
         <View style={styles.container}>
-            <Text style={styles.heading}>Your last 7 workouts</Text>
-            <FlatList
-                style={styles.dataContainer}
-                data={workouts}
-                renderItem={(item) => <Workout item={item.item} navigation={navigation} />}
-                keyExtractor={item => item.key} />
+            {workouts.length !== 0 ?
+                <>
+                    <Text style={styles.heading}>{props.type === "all" ?
+                        "All of your workouts" : "Your last 5 workouts"}</Text>
+                    <FlatList
+                        style={styles.dataContainer}
+                        data={workouts}
+                        renderItem={(item) => <Workout item={item.item} navigation={navigation} />}
+                        keyExtractor={item => item.key} />
+                </> :
+                <Text style={styles.heading}>No workouts to display</Text>}
         </View>
     )
 };
