@@ -1,16 +1,10 @@
 import React from 'react';
 import { View, Text, StyleSheet } from 'react-native';
-import Icon from 'react-native-vector-icons/Ionicons';
 
-const SetComponent = () => {
-    const handlePress = () => {
-
-    };
-
+const SetComponent = (props) => {
     return (
         <View style={styles.container}>
-            <Text style={styles.text}>Set No. 1 - 15 reps with 128 lbs</Text>
-            <Icon onPress={handlePress} name="close-outline" color="#ed4956" size={28}/>
+            <Text style={styles.text}>{props.text}</Text>
         </View>
     )
 };

@@ -1,12 +1,10 @@
-import React, { useState, useContext } from 'react';
+import React, { useState } from 'react';
 import { View, Text, StyleSheet, Dimensions, TouchableOpacity } from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons';
 import Dropdown from './ExerciseDropdown';
-import WorkoutContext from '../contexts/workout-context';
 
 const Exercise = (props) => {
     const [displayMenu, setDisplay] = useState(false);
-
     const handlePress = () => {
         setDisplay(!displayMenu);
     };
@@ -17,7 +15,7 @@ const Exercise = (props) => {
                 <Icon name={`arrow-${displayMenu ? "up" : "down"}-outline`} color="#b9bbb6" size={32} />
                 <Text style={styles.exercise}>{props.item.name}</Text>
             </TouchableOpacity>
-            {displayMenu ? <Dropdown id={props.id} sets={props.item.sets} item={props.item} /> : null}
+            {displayMenu ? <Dropdown item={props.item} /> : null}
         </View>
     )
 };
