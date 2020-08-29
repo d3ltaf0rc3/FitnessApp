@@ -29,7 +29,7 @@ const RegisterScreen = (props) => {
                         setError('That email address is invalid!');
                     }
 
-                    setError(error);
+                    setError(error.code);
                 });
         } else {
             setError("Both passwords must match!");
