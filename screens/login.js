@@ -19,15 +19,10 @@ const LoginScreen = (props) => {
                 props.navigation.navigate("Home");
             })
             .catch(error => {
-                if (error.code === 'auth/email-already-in-use') {
-                    setError('That email address is already in use!');
-                }
-
                 if (error.code === 'auth/invalid-email') {
                     setError('That email address is invalid!');
                 }
-
-                setError(error);
+                setError(error.code);
             });
     };
 

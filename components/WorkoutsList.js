@@ -23,7 +23,7 @@ const WorkoutsList = (props) => {
                     });
                 });
                 if (props.type === "some") {
-                    setWorkouts(workouts.slice(0,5));
+                    setWorkouts(workouts.slice(0, 5));
                 } else {
                     setWorkouts(workouts);
                 }
@@ -44,7 +44,7 @@ const WorkoutsList = (props) => {
                     <Text style={styles.heading}>{props.type === "all" ?
                         "All of your workouts" : "Your last 5 workouts"}</Text>
                     <FlatList
-                        style={styles.dataContainer}
+                        style={props.type === "all" ? styles.allData : styles.dataContainer}
                         data={workouts}
                         renderItem={(item) => <Workout item={item.item} navigation={navigation} />}
                         keyExtractor={item => item.key} />
@@ -64,6 +64,9 @@ const styles = StyleSheet.create({
     },
     dataContainer: {
         marginBottom: 170
+    },
+    allData: {
+        marginBottom: 80
     }
 });
 

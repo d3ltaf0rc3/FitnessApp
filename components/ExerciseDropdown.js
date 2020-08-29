@@ -15,7 +15,6 @@ const ExerciseDropdown = (props) => {
         const index = exercises.findIndex(value => JSON.stringify(value) === JSON.stringify(props.item));
         const exercise = exercises[index];
         exercise.sets += `${reps} reps with ${weight}-`;
-        setExercises(exercise);
 
         firestore()
             .collection("workouts")
