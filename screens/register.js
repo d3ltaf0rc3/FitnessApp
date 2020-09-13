@@ -13,7 +13,9 @@ const RegisterScreen = (props) => {
     const [rePassword, setRePassword] = useState("");
 
     const handlePress = () => {
-        if (rePassword === password) {
+        if (email !== "" && password !== "" && rePassword !== "") {
+            setError("All fields must be filled!");
+        } else if (rePassword === password) {
             auth()
                 .createUserWithEmailAndPassword(email, password)
                 .then((user) => {

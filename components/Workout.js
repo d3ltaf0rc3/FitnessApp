@@ -5,6 +5,7 @@ const Workout = (props) => {
     if (!props.item.createdAt) {
         return <View></View>
     }
+    
     const date = props.item.createdAt.toDate().toISOString().split("T")[0];
     const handlePress = () => {
         props.navigation.navigate("View details", { item: props.item });

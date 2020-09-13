@@ -12,18 +12,22 @@ const LoginScreen = (props) => {
     const context = useContext(UserContext);
 
     const handlePress = () => {
-        auth()
-            .signInWithEmailAndPassword(email, password)
-            .then((user) => {
-                context.logIn(user);
-                props.navigation.navigate("Home");
-            })
-            .catch(error => {
-                if (error.code === 'auth/invalid-email') {
-                    setError('That email address is invalid!');
-                }
-                setError(error.code);
-            });
+        if (email !== "" && password !== "") {
+            auth()
+                .signInWithEmailAndPassword(email, password)
+                .then((user) => {
+                    context.logIn(user);
+                    props.navigation.navigate("Home");
+                })
+                .catch(error => {
+                    if (error.code === 'auth/invalid-email') {
+                        setError('That email address is invalid!');
+                    }
+                    setError(error.code);
+                });
+        } else {
+            setError("Both fields must be completed!");
+        }
     };
 
     return (

@@ -9,7 +9,7 @@ const ExerciseDropdown = (props) => {
     const context = useContext(WorkoutContext);
     const [reps, setReps] = useState();
     const [weight, setWeight] = useState();
-    const [exercises, setExercises] = useState(context.workout.exercises);
+    const { exercises } = context.workout;
 
     const handlePress = () => {
         const index = exercises.findIndex(value => JSON.stringify(value) === JSON.stringify(props.item));

@@ -1,13 +1,13 @@
 # Fitness App
 
-A fitness app which helps you keep track of your workouts. You can store information about workouts, exercises, reps, sets and the weights you are using. The app has a intuitive UI and it is very easy to navigate through different screens and find what you want.
+A fitness app which helps you keep track of your workouts. You can store information about workouts, exercises, reps, sets and the weights you are using. The app has an intuitive UI and it is very easy to navigate through different sections and find what you want.
 
 ## 1. How is it built
-The app is built with **React Native** and uses **Firebase** for data storage.
+The app is built with **React Native** and uses **Firebase** for back-end.
 
 ## 2. Functionality
-* Unauthorized users are only allowed to login or register.
-* Authorized users can add workouts, exercises, sets, reps and the weights they are using.
+* Unauthenticated users are only allowed to login or register.
+* Authenticated users can add or delete workouts, exercises, sets, reps and weights.
 
 ## 3. Screens
 The app has the following screens:

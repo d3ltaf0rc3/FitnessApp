@@ -7,18 +7,19 @@ import UserContext from '../contexts/user-context';
 
 const HomeScreen = (props) => {
     const context = useContext(UserContext);
-    const handlePress = () => {
-        props.navigation.navigate("Add a workout");
-    };
+
+    if (!context.user) {
+        return <Wrapper title="Home"></Wrapper>
+    }
 
     return (
         <Wrapper title="Home">
             <Text style={styles.greeting}>Hello, {context.user.user.email}</Text>
-            <TouchableOpacity onPress={handlePress} style={styles.addWorkoutContainer}>
+            <TouchableOpacity onPress={() => props.navigation.navigate("Add a workout")} style={styles.addWorkoutContainer}>
                 <Icon name="add-circle-outline" color="#fff" size={30} />
                 <Text style={styles.text}>Add a workout</Text>
             </TouchableOpacity>
-            <WorkoutsList type="some"/>
+            <WorkoutsList type="some" />
         </Wrapper>
     )
 };

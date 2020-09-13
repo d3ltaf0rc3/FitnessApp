@@ -5,13 +5,10 @@ import Dropdown from './ExerciseDropdown';
 
 const Exercise = (props) => {
     const [displayMenu, setDisplay] = useState(false);
-    const handlePress = () => {
-        setDisplay(!displayMenu);
-    };
 
     return (
         <View style={styles.wrapper}>
-            <TouchableOpacity onPress={handlePress} style={styles.container}>
+            <TouchableOpacity onPress={() => setDisplay(!displayMenu)} style={styles.container}>
                 <Icon name={`arrow-${displayMenu ? "up" : "down"}-outline`} color="#b9bbb6" size={32} />
                 <Text style={styles.exercise}>{props.item.name}</Text>
             </TouchableOpacity>
