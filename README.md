@@ -18,4 +18,15 @@ The app has the following screens:
 * Add a workout screen
 * View details screen which shows additional information about a workout
 
+## 4. Prerequisites
+You need to install and configure **Android Studio** before cloning the repository.
+
+Find out more about [installing Android Studio](https://developer.android.com/studio/install) 
+and [creating virtual devices](https://developer.android.com/studio/run/managing-avds)
+
+## 5. Setup
+1. Clone this repository
+2. Run **``npm install``**
+3. Run **``react-native run-android``** or **``react-native run-ios``**
+
 **``NOTE! The app is tested on Android devices! It may not function as well on iOS devices!``**
