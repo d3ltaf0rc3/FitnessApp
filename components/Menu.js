@@ -13,14 +13,14 @@ const Menu = (props) => {
             <View style={styles.linkContainer}>
                 {context.user !== null ?
                     <>
-                        <Link to="/Home" style={styles.link}>Home</Link>
-                        <Link to="/All workouts" style={styles.link}>All Workouts</Link>
-                        <Link to="/Add a workout" style={styles.link}>Add a workout</Link>
+                        <Link to="/Home" onPress={props.handleClick} style={styles.link}>Home</Link>
+                        <Link to="/All workouts" onPress={props.handleClick} style={styles.link}>All Workouts</Link>
+                        <Link to="/Add a workout" onPress={props.handleClick} style={styles.link}>Add a workout</Link>
                         <Text onPress={context.logOut} style={styles.link}>Logout</Text>
                     </> :
                     <>
-                        <Link to="/Login" style={styles.link}>Login</Link>
-                        <Link to="/Register" style={styles.link}>Register</Link>
+                        <Link to="/Login" onPress={props.handleClick} style={styles.link}>Login</Link>
+                        <Link to="/Register" onPress={props.handleClick} style={styles.link}>Register</Link>
                     </>}
             </View>
         </View>
