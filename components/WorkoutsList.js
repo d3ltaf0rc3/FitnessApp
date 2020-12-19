@@ -34,7 +34,7 @@ const WorkoutsList = (props) => {
     }, [props.type]);
 
     if (loading) {
-        return <ActivityIndicator />
+        return <ActivityIndicator size="large" color="#00ff00" />
     }
 
     return (
