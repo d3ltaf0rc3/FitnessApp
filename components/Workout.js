@@ -1,14 +1,17 @@
+import { useNavigation } from '@react-navigation/native';
 import React from 'react';
 import { View, Image, Text, TouchableOpacity, StyleSheet } from 'react-native';
 
 const Workout = (props) => {
+    const navigation = useNavigation();
+
     if (!props.item.createdAt) {
         return <View></View>
     }
     
     const date = props.item.createdAt.toDate().toISOString().split("T")[0];
     const handlePress = () => {
-        props.navigation.navigate("View details", { item: props.item });
+        navigation.navigate("View details", { item: props.item });
     };
 
     return (

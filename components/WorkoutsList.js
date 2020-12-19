@@ -34,7 +34,11 @@ const WorkoutsList = (props) => {
     }, [props.type]);
 
     if (loading) {
-        return <ActivityIndicator size="large" color="#00ff00" />
+        return (
+            <View style={styles.container}>
+                <ActivityIndicator size="large" color="#00ff00" />
+            </View>
+        )
     }
 
     return (
@@ -46,7 +50,7 @@ const WorkoutsList = (props) => {
                     <FlatList
                         style={props.type === "all" ? styles.allData : styles.dataContainer}
                         data={workouts}
-                        renderItem={(item) => <Workout item={item.item} navigation={navigation} />}
+                        renderItem={(item) => <Workout item={item.item} />}
                         keyExtractor={item => item.key} />
                 </> :
                 <Text style={styles.heading}>No workouts to display</Text>}
@@ -67,6 +71,9 @@ const styles = StyleSheet.create({
     },
     allData: {
         marginBottom: 80
+    },
+    spinner: {
+        marginTop: 40
     }
 });
 
