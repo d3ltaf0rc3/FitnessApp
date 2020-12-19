@@ -20,18 +20,11 @@ const RegisterScreen = (props) => {
                 .createUserWithEmailAndPassword(email, password)
                 .then((user) => {
                     context.logIn(user);
-                    props.navigation.navigate("Home");
                 })
                 .catch(error => {
-                    if (error.code === 'auth/email-already-in-use') {
-                        setError('That email address is already in use!');
-                    }
-
-                    if (error.code === 'auth/invalid-email') {
-                        setError('That email address is invalid!');
-                    }
-
-                    setError(error.code);
+                    const message = error.message.split(" ");
+                    message.shift();
+                    setError(message.join(" "));
                 });
         } else {
             setError("Both passwords must match!");
@@ -69,11 +62,11 @@ const RegisterScreen = (props) => {
 
 const styles = StyleSheet.create({
     form: {
-        marginTop: 50
+        marginTop: 50,
+        width: 300
     },
     input: {
         backgroundColor: "#fff",
-        width: 300,
         height: 30,
         padding: 4,
         borderRadius: 3
@@ -86,7 +79,6 @@ const styles = StyleSheet.create({
     btn: {
         textAlign: "center",
         marginTop: 30,
-        width: 300,
         backgroundColor: "#20639b",
         paddingVertical: 10,
         borderRadius: 5,

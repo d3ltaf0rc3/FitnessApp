@@ -17,13 +17,11 @@ const LoginScreen = (props) => {
                 .signInWithEmailAndPassword(email, password)
                 .then((user) => {
                     context.logIn(user);
-                    props.navigation.navigate("Home");
                 })
                 .catch(error => {
-                    if (error.code === 'auth/invalid-email') {
-                        setError('That email address is invalid!');
-                    }
-                    setError(error.code);
+                    const message = error.message.split(" ");
+                    message.shift();
+                    setError(message.join(" "));
                 });
         } else {
             setError("Both fields must be completed!");
@@ -55,11 +53,11 @@ const LoginScreen = (props) => {
 
 const styles = StyleSheet.create({
     form: {
-        marginTop: 60
+        marginTop: 60,
+        width: 300
     },
     input: {
         backgroundColor: "#fff",
-        width: 300,
         height: 30,
         padding: 4,
         borderRadius: 3
@@ -72,7 +70,6 @@ const styles = StyleSheet.create({
     btn: {
         textAlign: "center",
         marginTop: 30,
-        width: 300,
         backgroundColor: "#20639b",
         paddingVertical: 10,
         borderRadius: 5,
