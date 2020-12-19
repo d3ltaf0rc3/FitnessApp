@@ -9,6 +9,7 @@ import AddAWorkoutScreen from './screens/add-a-workout';
 import ViewDetailsScreen from './screens/view-details';
 import UserContext from './contexts/user-context';
 import context from './contexts/user-context';
+import auth from '@react-native-firebase/auth';
 
 const Stack = createStackNavigator();
 
@@ -19,7 +20,9 @@ const App = () => {
     setUser(user);
   };
   const logOut = () => {
-    setUser(null);
+    auth().signOut()
+      .then(() => setUser(null))
+      .catch((err) => console.error(err));
   };
 
   return (

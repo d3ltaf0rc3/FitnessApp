@@ -1,35 +1,26 @@
 import React, { useContext } from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons';
-import { useNavigation } from '@react-navigation/native';
+import { Link } from '@react-navigation/native';
 import UserContext from '../contexts/user-context';
-import auth from '@react-native-firebase/auth';
 
 const Menu = (props) => {
     const context = useContext(UserContext);
-    const navigation = useNavigation();
 
     return (
         <View style={styles.container}>
-            <Icon style={styles.btn} onPress={props.handleClick} name="close-outline" color="#fff" size={40} />
+            <Icon style={styles.btn} onPress={props.handleClick} name="close-outline" color="#0066cc" size={46} />
             <View style={styles.linkContainer}>
                 {context.user !== null ?
                     <>
-                        <Text onPress={() => navigation.navigate("Home")} style={styles.link}>Home</Text>
-                        <Text onPress={() => navigation.navigate("All workouts")} style={styles.link}>All Workouts</Text>
-                        <Text onPress={() => navigation.navigate("Add a workout")} style={styles.link}>Add a workout</Text>
-                        <Text onPress={() => {
-                            auth()
-                                .signOut()
-                                .then(() => {
-                                    context.logOut();
-                                    navigation.navigate("Login")
-                                });
-                        }} style={styles.link}>Logout</Text>
+                        <Link to="/Home" style={styles.link}>Home</Link>
+                        <Link to="/All workouts" style={styles.link}>All Workouts</Link>
+                        <Link to="/Add a workout" style={styles.link}>Add a workout</Link>
+                        <Text onPress={context.logOut} style={styles.link}>Logout</Text>
                     </> :
                     <>
-                        <Text onPress={() => navigation.navigate("Login")} style={styles.link}>Login</Text>
-                        <Text onPress={() => navigation.navigate("Register")} style={styles.link}>Register</Text>
+                        <Link to="/Login" style={styles.link}>Login</Link>
+                        <Link to="/Register" style={styles.link}>Register</Link>
                     </>}
             </View>
         </View>
@@ -39,7 +30,7 @@ const Menu = (props) => {
 const styles = StyleSheet.create({
     container: {
         zIndex: 1,
-        backgroundColor: "#455a64",
+        backgroundColor: "#ffffff",
         position: "absolute",
         top: 0,
         left: 0,
@@ -54,7 +45,7 @@ const styles = StyleSheet.create({
     },
     link: {
         marginTop: 20,
-        color: "#fff",
+        color: "#0066cc",
         fontSize: 20
     },
     linkContainer: {
