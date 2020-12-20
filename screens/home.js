@@ -11,7 +11,7 @@ const HomeScreen = (props) => {
     if (!user) {
         return (
             <Wrapper title="Home">
-                <ActivityIndicator size="large" color="#0000ff" />
+                <ActivityIndicator size={82} color="#20639b" />
             </Wrapper>
         )
     }

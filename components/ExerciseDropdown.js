@@ -25,7 +25,6 @@ const ExerciseDropdown = (props) => {
             .then(() => {
                 setWeight("");
                 setReps("");
-                context.update();
             });
     };
 

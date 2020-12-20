@@ -9,18 +9,16 @@ import WorkoutContext from '../contexts/workout-context';
 
 const ViewDetailsScreen = (props) => {
     const [exercise, setExercise] = useState();
-    const [update, setUpdate] = useState(false);
     const [item, setItem] = useState(props.route.params.item);
 
     useEffect(() => {
-        firestore()
+        const subscriber = firestore()
             .collection('workouts')
             .doc(props.route.params.item.key)
-            .get()
-            .then(item => {
-                setItem({ ...item._data, key: props.route.params.item.key });
-            });
-    }, [update]);
+            .onSnapshot((item) => setItem({ ...item._data, key: props.route.params.item.key }));
+
+        return () => subscriber();
+    }, [props.route.params.item.key]);
 
     const deleteWorkout = () => {
         firestore()
@@ -44,12 +42,11 @@ const ViewDetailsScreen = (props) => {
             })
             .then(() => {
                 setExercise("");
-                setUpdate(!update);
             });
     };
 
     return (
-        <WorkoutContext.Provider value={{ workout: item, update: () => setUpdate(!update) }}>
+        <WorkoutContext.Provider value={{ workout: item }}>
             <ScrollView style={styles.container}>
                 <Wrapper title="View Details">
                     <DetailsHeader />
