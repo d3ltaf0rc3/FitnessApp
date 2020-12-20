@@ -36,7 +36,7 @@ const WorkoutsList = (props) => {
     if (loading) {
         return (
             <View style={styles.container}>
-                <ActivityIndicator size="large" color="#00ff00" />
+                <ActivityIndicator style={styles.spinner} size={82} color="#20639b" />
             </View>
         )
     }
