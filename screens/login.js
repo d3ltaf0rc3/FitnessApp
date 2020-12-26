@@ -5,7 +5,7 @@ import auth from '@react-native-firebase/auth';
 import ErrorComponent from '../components/Error';
 import UserContext from '../contexts/user-context';
 
-const LoginScreen = (props) => {
+const LoginScreen = () => {
     const [error, setError] = useState(null);
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");

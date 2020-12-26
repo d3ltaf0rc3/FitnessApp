@@ -5,7 +5,7 @@ import UserContext from '../contexts/user-context';
 import auth from '@react-native-firebase/auth';
 import ErrorComponent from '../components/Error';
 
-const RegisterScreen = (props) => {
+const RegisterScreen = () => {
     const context = useContext(UserContext);
     const [error, setError] = useState(null);
     const [email, setEmail] = useState("");
