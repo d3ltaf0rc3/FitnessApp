@@ -27,6 +27,6 @@ and [creating virtual devices](https://developer.android.com/studio/run/managing
 ## 5. Setup
 1. Clone this repository
 2. Run **``npm install``**
-3. Run **``react-native run-android``** or **``react-native run-ios``**
+3. Run **``react-native run-android``**
 
 **``NOTE! The app is tested on Android devices! It may not function as well on iOS devices!``**
