@@ -1,5 +1,6 @@
 import React, { useState, useContext } from 'react';
-import { View, Text, StyleSheet, TextInput, Pressable } from 'react-native';
+import { View, Text, StyleSheet, TextInput } from 'react-native';
+import Button from '../components/Button';
 import Wrapper from '../components/Wrapper';
 import UserContext from '../contexts/user-context';
 import auth from '@react-native-firebase/auth';
@@ -55,9 +56,7 @@ const RegisterScreen = () => {
           onChangeText={(text) => setRePassword(text)}
           style={styles.input}
         />
-        <Pressable onPress={handlePress}>
-          <Text style={styles.btn}>Register</Text>
-        </Pressable>
+        <Button onPress={handlePress} text="Register" />
       </View>
     </Wrapper>
   );
@@ -78,15 +77,6 @@ const styles = StyleSheet.create({
     color: '#fff',
     marginVertical: 7,
     fontSize: 14,
-  },
-  btn: {
-    textAlign: 'center',
-    marginTop: 30,
-    backgroundColor: '#20639b',
-    paddingVertical: 10,
-    borderRadius: 5,
-    color: '#fff',
-    fontSize: 16,
   },
 });
 

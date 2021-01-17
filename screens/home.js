@@ -1,10 +1,5 @@
 import React, { useContext } from 'react';
-import {
-  ActivityIndicator,
-  StyleSheet,
-  Text,
-  TouchableOpacity,
-} from 'react-native';
+import { ActivityIndicator, StyleSheet, Text, Pressable } from 'react-native';
 import Wrapper from '../components/Wrapper';
 import Icon from 'react-native-vector-icons/Ionicons';
 import WorkoutsList from '../components/WorkoutsList';
@@ -12,6 +7,7 @@ import UserContext from '../contexts/user-context';
 
 const HomeScreen = (props) => {
   const { user } = useContext(UserContext);
+  const handlePress = () => props.navigation.navigate('Add a workout');
 
   if (!user) {
     return (
@@ -24,12 +20,10 @@ const HomeScreen = (props) => {
   return (
     <Wrapper title="Home">
       <Text style={styles.greeting}>Hello, {user.user.email}</Text>
-      <TouchableOpacity
-        onPress={() => props.navigation.navigate('Add a workout')}
-        style={styles.addWorkoutContainer}>
+      <Pressable onPress={handlePress} style={styles.addWorkoutContainer}>
         <Icon name="add-circle-outline" color="#fff" size={30} />
         <Text style={styles.text}>Add a workout</Text>
-      </TouchableOpacity>
+      </Pressable>
       <WorkoutsList type="some" />
     </Wrapper>
   );
