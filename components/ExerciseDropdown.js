@@ -6,10 +6,10 @@ import firestore from '@react-native-firebase/firestore';
 import WorkoutContext from '../contexts/workout-context';
 
 const ExerciseDropdown = (props) => {
-  const context = useContext(WorkoutContext);
+  const workout = useContext(WorkoutContext);
   const [reps, setReps] = useState();
   const [weight, setWeight] = useState();
-  const { exercises } = context.workout;
+  const { exercises } = workout;
 
   const handlePress = () => {
     const index = exercises.findIndex(
@@ -20,7 +20,7 @@ const ExerciseDropdown = (props) => {
 
     firestore()
       .collection('workouts')
-      .doc(context.workout.key)
+      .doc(workout.key)
       .update({
         exercises,
       })

@@ -3,7 +3,7 @@ import { Text, Image, StyleSheet } from 'react-native';
 import WorkoutContext from '../contexts/workout-context';
 
 const DetailsHeader = () => {
-  const { workout } = useContext(WorkoutContext);
+  const workout = useContext(WorkoutContext);
   const date = workout.createdAt.toDate().toISOString().split('T')[0];
 
   return (

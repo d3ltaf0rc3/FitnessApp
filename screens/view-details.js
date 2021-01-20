@@ -3,7 +3,7 @@ import {
   View,
   StyleSheet,
   Text,
-  TouchableOpacity,
+  Pressable,
   ScrollView,
   TextInput,
   Dimensions,
@@ -41,6 +41,7 @@ const ViewDetailsScreen = (props) => {
   };
 
   const addExercise = () => {
+    // TODO: change logic
     firestore()
       .collection('workouts')
       .doc(item.key)
@@ -56,7 +57,7 @@ const ViewDetailsScreen = (props) => {
   };
 
   return (
-    <WorkoutContext.Provider value={{ workout: item }}>
+    <WorkoutContext.Provider value={{ ...item }}>
       <ScrollView style={styles.container}>
         <Wrapper title="View Details">
           <DetailsHeader />
@@ -80,17 +81,17 @@ const ViewDetailsScreen = (props) => {
           <View>
             <Text style={styles.heading}>
               {item.exercises.length === 0
-                ? 'No exercises to list'
+                ? 'No exercises to show'
                 : 'Exercises'}
             </Text>
             {item.exercises.map((entry, index) => (
               <Exercise item={entry} key={index} />
             ))}
           </View>
-          <TouchableOpacity onPress={deleteWorkout} style={styles.btn}>
-            <Icon name="trash-outline" color="#fff" size={16} />
+          <Pressable onPress={deleteWorkout} style={styles.btn}>
+            <Icon name="trash-outline" color="#fff" size={20} />
             <Text style={styles.btnText}>Delete</Text>
-          </TouchableOpacity>
+          </Pressable>
         </Wrapper>
       </ScrollView>
     </WorkoutContext.Provider>
@@ -104,8 +105,8 @@ const styles = StyleSheet.create({
   },
   btn: {
     marginVertical: 30,
-    width: 120,
-    height: 30,
+    width: 180,
+    height: 40,
     backgroundColor: '#ed4956',
     alignItems: 'center',
     justifyContent: 'center',
@@ -114,8 +115,8 @@ const styles = StyleSheet.create({
   },
   btnText: {
     color: '#fff',
-    fontSize: 18,
-    marginLeft: 8,
+    fontSize: 20,
+    marginLeft: 5,
   },
   input: {
     backgroundColor: '#808588',
@@ -125,7 +126,7 @@ const styles = StyleSheet.create({
   addContainer: {
     flexDirection: 'row',
     alignItems: 'center',
-    marginBottom: 20,
+    marginBottom: 30,
   },
 });
 
