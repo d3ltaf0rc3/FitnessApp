@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, StyleSheet, Text, TouchableOpacity } from 'react-native';
+import { View, StyleSheet, Text, Pressable } from 'react-native';
 import Wrapper from '../components/Wrapper';
 import { Picker } from '@react-native-community/picker';
 import Icon from 'react-native-vector-icons/Ionicons';
@@ -12,7 +12,7 @@ const AddAWorkoutScreen = (props) => {
   const images = {
     Back: 'https://i.imgur.com/QKit3gt.jpg',
     Chest: 'https://i.imgur.com/Irz3q6x.jpg',
-    Glutes: 'https://i.imgur.com/5mndGWy.jpg',
+    Quads: 'https://i.imgur.com/5mndGWy.jpg',
     Hamstrings: 'https://i.imgur.com/k0vCrPh.jpg',
   };
 
@@ -43,7 +43,7 @@ const AddAWorkoutScreen = (props) => {
           }}>
           <Picker.Item label="Back workout" value="Back" />
           <Picker.Item label="Chest workout" value="Chest" />
-          <Picker.Item label="Glutes workout" value="Glutes" />
+          <Picker.Item label="Quads workout" value="Quads" />
           <Picker.Item label="Hamstrings workout" value="Hamstrings" />
         </Picker>
       </View>
@@ -51,10 +51,12 @@ const AddAWorkoutScreen = (props) => {
         <Text style={styles.text}>Date:</Text>
         <Text style={styles.date}>{date}</Text>
       </View>
-      <TouchableOpacity style={styles.btn} onPress={handlePress}>
-        <Icon name="add-circle-outline" color="#fff" size={32} />
-        <Text style={styles.text}>Add</Text>
-      </TouchableOpacity>
+      <View style={styles.innerContainer}>
+        <Pressable style={styles.btn} onPress={handlePress}>
+          <Icon name="add-circle-outline" color="#fff" size={32} />
+          <Text style={styles.text}>Add</Text>
+        </Pressable>
+      </View>
     </Wrapper>
   );
 };
@@ -81,9 +83,8 @@ const styles = StyleSheet.create({
   },
   btn: {
     flexDirection: 'row',
-    marginTop: 50,
     backgroundColor: '#20639b',
-    width: 200,
+    width: 250,
     height: 50,
     alignItems: 'center',
     justifyContent: 'center',
