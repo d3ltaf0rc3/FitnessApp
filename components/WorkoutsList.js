@@ -1,13 +1,8 @@
 import React, { useState, useEffect } from 'react';
-import {
-  View,
-  Text,
-  StyleSheet,
-  FlatList,
-  ActivityIndicator,
-} from 'react-native';
+import { View, Text, StyleSheet, FlatList } from 'react-native';
 import Workout from './Workout';
 import firestore from '@react-native-firebase/firestore';
+import Spinner from './Spinner';
 
 const WorkoutsList = (props) => {
   const [loading, setLoading] = useState(true);
@@ -17,19 +12,19 @@ const WorkoutsList = (props) => {
     const subscriber = firestore()
       .collection('workouts')
       .orderBy('createdAt', 'desc')
-      .onSnapshot(querySnapshot => {
-        const workouts = [];
+      .onSnapshot((querySnapshot) => {
+        const wrkts = [];
 
-        querySnapshot.forEach(documentSnapshot => {
-          workouts.push({
+        querySnapshot.forEach((documentSnapshot) => {
+          wrkts.push({
             ...documentSnapshot.data(),
             key: documentSnapshot.id,
           });
         });
         if (props.type === 'some') {
-          setWorkouts(workouts.slice(0, 5));
+          setWorkouts(wrkts.slice(0, 5));
         } else {
-          setWorkouts(workouts);
+          setWorkouts(wrkts);
         }
         setLoading(false);
       });
@@ -38,28 +33,30 @@ const WorkoutsList = (props) => {
   }, [props.type]);
 
   if (loading) {
-    return (
-      <View style={styles.container}>
-        <ActivityIndicator style={styles.spinner} size={82} color="#20639b" />
-      </View>
-    );
+    return <Spinner />;
   }
 
   return (
     <View style={styles.container}>
-      {workouts.length !== 0 ?
+      {workouts.length !== 0 ? (
         <>
-          <Text style={styles.heading}>{props.type === 'all' ? 'All of your workouts' : 'Your last 5 workouts'}
+          <Text style={styles.heading}>
+            {props.type === 'all'
+              ? 'All of your workouts'
+              : 'Your last 5 workouts'}
           </Text>
           <FlatList
             style={props.type === 'all' ? styles.allData : styles.dataContainer}
             data={workouts}
             renderItem={(item) => <Workout item={item.item} />}
-            keyExtractor={item => item.key} />
-        </> :
-        <Text style={styles.heading}>No workouts to display</Text>}
+            keyExtractor={(item) => item.key}
+          />
+        </>
+      ) : (
+          <Text style={styles.heading}>No workouts to display</Text>
+        )}
     </View>
-  )
+  );
 };
 
 const styles = StyleSheet.create({
@@ -75,9 +72,6 @@ const styles = StyleSheet.create({
   },
   allData: {
     marginBottom: 80,
-  },
-  spinner: {
-    marginTop: 40,
   },
 });
 
