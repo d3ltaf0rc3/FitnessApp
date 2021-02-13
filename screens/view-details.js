@@ -14,50 +14,57 @@ import Wrapper from '../components/Wrapper';
 import Exercise from '../components/Exercise';
 import DetailsHeader from '../components/DetailsHeader';
 import WorkoutContext from '../contexts/workout-context';
+import Spinner from '../components/Spinner';
 
 const ViewDetailsScreen = (props) => {
-  const [exercise, setExercise] = useState();
-  const [item, setItem] = useState(props.route.params.item);
+  const [exercise, setExercise] = useState('');
+  const [workout, setWorkout] = useState(null);
 
   useEffect(() => {
     const subscriber = firestore()
       .collection('workouts')
-      .doc(props.route.params.item.key)
-      .onSnapshot((entry) =>
-        setItem({ ...entry._data, key: props.route.params.item.key }),
-      );
+      .doc(props.route.params.key)
+      .onSnapshot((entry) => {
+        if (entry.data()) {
+          setWorkout({ ...entry.data(), key: props.route.params.key });
+        }
+      });
 
     return () => subscriber();
-  }, [props.route.params.item.key]);
+  }, [props.route.params.key]);
 
   const deleteWorkout = () => {
     firestore()
       .collection('workouts')
-      .doc(item.key)
+      .doc(workout.key)
       .delete()
-      .then(() => {
-        props.navigation.goBack();
-      });
+      .then(() => props.navigation.goBack());
   };
 
   const addExercise = () => {
-    // TODO: change logic
     firestore()
       .collection('workouts')
-      .doc(item.key)
+      .doc(workout.key)
       .update({
         exercises: firestore.FieldValue.arrayUnion({
+          id: workout.exercises.length,
           name: exercise,
-          sets: '',
+          sets: [],
         }),
       })
-      .then(() => {
-        setExercise('');
-      });
+      .then(() => setExercise(''));
   };
 
+  if (!workout) {
+    return (
+      <Wrapper title="View Details">
+        <Spinner />
+      </Wrapper>
+    );
+  }
+
   return (
-    <WorkoutContext.Provider value={{ ...item }}>
+    <WorkoutContext.Provider value={workout}>
       <ScrollView style={styles.container}>
         <Wrapper title="View Details">
           <DetailsHeader />
@@ -80,11 +87,11 @@ const ViewDetailsScreen = (props) => {
           </View>
           <View>
             <Text style={styles.heading}>
-              {item.exercises.length === 0
+              {workout.exercises.length === 0
                 ? 'No exercises to show'
                 : 'Exercises'}
             </Text>
-            {item.exercises.map((entry, index) => (
+            {workout.exercises.map((entry, index) => (
               <Exercise item={entry} key={index} />
             ))}
           </View>

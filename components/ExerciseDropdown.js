@@ -1,4 +1,4 @@
-import React, { useState, useContext } from 'react';
+import React, { useContext, useState } from 'react';
 import { View, StyleSheet, Dimensions, TextInput, Text } from 'react-native';
 import SetComponent from './Set';
 import Icon from 'react-native-vector-icons/Ionicons';
@@ -6,23 +6,21 @@ import firestore from '@react-native-firebase/firestore';
 import WorkoutContext from '../contexts/workout-context';
 
 const ExerciseDropdown = (props) => {
-  const workout = useContext(WorkoutContext);
+  const { key, exercises } = useContext(WorkoutContext);
   const [reps, setReps] = useState();
   const [weight, setWeight] = useState();
-  const { exercises } = workout;
 
   const handlePress = () => {
-    const index = exercises.findIndex(
-      (value) => JSON.stringify(value) === JSON.stringify(props.item),
+    const updatedExercises = exercises.slice();
+    updatedExercises[props.item.id].sets.push(
+      `${reps} reps with ${weight} lbs`,
     );
-    const exercise = exercises[index];
-    exercise.sets += `${reps} reps with ${weight}-`;
 
     firestore()
       .collection('workouts')
-      .doc(workout.key)
+      .doc(key)
       .update({
-        exercises,
+        exercises: updatedExercises,
       })
       .then(() => {
         setWeight('');
@@ -32,16 +30,7 @@ const ExerciseDropdown = (props) => {
 
   return (
     <View style={styles.container}>
-      {props.item.sets.length !== 0 ? (
-        props.item.sets.split('-').map((item, index) => {
-          if (item === '') {
-            return null;
-          }
-          return <SetComponent text={item} key={index} />;
-        })
-      ) : (
-        <Text style={styles.text}>No sets available</Text>
-      )}
+      {props.item.sets.length !== 0 ? props.item.sets.map((text, index) => <SetComponent text={text} key={index} />) : <Text style={styles.text}>No sets available</Text>}
       <View style={styles.newSetContainer}>
         <TextInput
           value={reps}
