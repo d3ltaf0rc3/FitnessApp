@@ -1,9 +1,10 @@
 import React, { useContext } from 'react';
-import { ActivityIndicator, StyleSheet, Text, Pressable } from 'react-native';
+import { StyleSheet, Text, Pressable } from 'react-native';
 import Wrapper from '../components/Wrapper';
 import Icon from 'react-native-vector-icons/Ionicons';
 import WorkoutsList from '../components/WorkoutsList';
 import UserContext from '../contexts/user-context';
+import Spinner from '../components/Spinner';
 
 const HomeScreen = (props) => {
   const { user } = useContext(UserContext);
@@ -12,7 +13,7 @@ const HomeScreen = (props) => {
   if (!user) {
     return (
       <Wrapper title="Home">
-        <ActivityIndicator size={82} color="#20639b" />
+        <Spinner />
       </Wrapper>
     );
   }
