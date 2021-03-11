@@ -42,18 +42,15 @@ const App = () => {
             <>
               <Stack.Screen name="Home" component={HomeScreen} />
               <Stack.Screen name="All workouts" component={AllWorkoutsScreen} />
-              <Stack.Screen
-                name="Add a workout"
-                component={AddAWorkoutScreen}
-              />
+              <Stack.Screen name="Add a workout" component={AddAWorkoutScreen} />
               <Stack.Screen name="View details" component={ViewDetailsScreen} />
             </>
           ) : (
-              <>
-                <Stack.Screen name="Login" component={LoginScreen} />
-                <Stack.Screen name="Register" component={RegisterScreen} />
-              </>
-            )}
+            <>
+              <Stack.Screen name="Login" component={LoginScreen} />
+              <Stack.Screen name="Register" component={RegisterScreen} />
+            </>
+          )}
         </Stack.Navigator>
       </NavigationContainer>
     </UserContext.Provider>

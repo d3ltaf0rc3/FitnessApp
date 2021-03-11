@@ -30,7 +30,9 @@ const ExerciseDropdown = (props) => {
 
   return (
     <View style={styles.container}>
-      {props.item.sets.length !== 0 ? props.item.sets.map((text, index) => <SetComponent text={text} key={index} />) : <Text style={styles.text}>No sets available</Text>}
+      {props.item.sets.length !== 0 ?
+        props.item.sets.map((text, index) => <SetComponent text={text} key={index} />) :
+        <Text style={styles.text}>No sets available</Text>}
       <View style={styles.newSetContainer}>
         <TextInput
           value={reps}
@@ -38,6 +40,7 @@ const ExerciseDropdown = (props) => {
           placeholderTextColor="#101010"
           placeholder="Reps..."
           style={styles.input}
+          keyboardType="numeric"
         />
         <TextInput
           value={weight}
@@ -45,6 +48,7 @@ const ExerciseDropdown = (props) => {
           placeholderTextColor="#101010"
           placeholder="Weight..."
           style={styles.input}
+          keyboardType="numeric"
         />
         <Icon onPress={handlePress} name="add-outline" color="#fff" size={32} />
       </View>

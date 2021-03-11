@@ -2,12 +2,13 @@ import { useNavigation } from '@react-navigation/native';
 import React from 'react';
 import { View, Image, Text, StyleSheet } from 'react-native';
 import Button from './Button';
+import Spinner from './Spinner';
 
 const Workout = (props) => {
   const navigation = useNavigation();
 
   if (!props.item.createdAt) {
-    return <View />;
+    return <Spinner />;
   }
 
   const date = props.item.createdAt.toDate().toISOString().split('T')[0];
