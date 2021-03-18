@@ -1,13 +1,16 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { View, StyleSheet, Text, Pressable } from 'react-native';
 import Wrapper from '../components/Wrapper';
 import { Picker } from '@react-native-community/picker';
 import Icon from 'react-native-vector-icons/Ionicons';
 import firestore from '@react-native-firebase/firestore';
+import UserContext from '../contexts/user-context';
 
 const AddAWorkoutScreen = (props) => {
   const [type, setType] = useState('Back');
   const [image, setImage] = useState('https://i.imgur.com/QKit3gt.jpg');
+  const { user } = useContext(UserContext);
+
   const date = new Date().toISOString().split('T')[0];
   const images = {
     Back: 'https://i.imgur.com/QKit3gt.jpg',
@@ -24,6 +27,7 @@ const AddAWorkoutScreen = (props) => {
         createdAt: firestore.FieldValue.serverTimestamp(),
         exercises: [],
         image,
+        createdBy: user.user.email,
       })
       .then(() => {
         props.navigation.navigate('All workouts');

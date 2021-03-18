@@ -25,7 +25,7 @@ const ViewDetailsScreen = (props) => {
       .collection('workouts')
       .doc(props.route.params.key)
       .onSnapshot((entry) => {
-        if (entry.data()) {
+        if (entry?.data()) {
           setWorkout({ ...entry.data(), key: props.route.params.key });
         }
       });

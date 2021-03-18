@@ -1,16 +1,20 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { View, Text, StyleSheet, FlatList } from 'react-native';
 import Workout from './Workout';
 import firestore from '@react-native-firebase/firestore';
 import Spinner from './Spinner';
+import UserContext from '../contexts/user-context';
 
 const WorkoutsList = (props) => {
   const [loading, setLoading] = useState(true);
   const [workouts, setWorkouts] = useState([]);
+  const { user } = useContext(UserContext);
+  const email = user?.user.email || null;
 
   useEffect(() => {
     const subscriber = firestore()
       .collection('workouts')
+      .where('createdBy', '==', email)
       .orderBy('createdAt', 'desc')
       .onSnapshot((querySnapshot) => {
         const wrkts = [];
@@ -27,10 +31,11 @@ const WorkoutsList = (props) => {
           setWorkouts(wrkts);
         }
         setLoading(false);
-      });
+      }, (error) => console.log(error),
+      );
 
     return () => subscriber();
-  }, [props.type]);
+  }, [props.type, email]);
 
   if (loading) {
     return <Spinner />;
@@ -53,8 +58,8 @@ const WorkoutsList = (props) => {
           />
         </>
       ) : (
-          <Text style={styles.heading}>No workouts to display</Text>
-        )}
+        <Text style={styles.heading}>No workouts to display</Text>
+      )}
     </View>
   );
 };
