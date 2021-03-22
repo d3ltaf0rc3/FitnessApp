@@ -1,10 +1,10 @@
 import React, { useContext } from 'react';
-import { StyleSheet, Text, Pressable } from 'react-native';
+import { StyleSheet, Text, View } from 'react-native';
 import Wrapper from '../components/Wrapper';
-import Icon from 'react-native-vector-icons/Ionicons';
 import WorkoutsList from '../components/WorkoutsList';
 import UserContext from '../contexts/user-context';
 import Spinner from '../components/Spinner';
+import Button from '../components/Button';
 
 const HomeScreen = (props) => {
   const { user } = useContext(UserContext);
@@ -20,12 +20,15 @@ const HomeScreen = (props) => {
 
   return (
     <Wrapper title="Home">
-      <Text style={styles.greeting}>Hello, {user.user.email}</Text>
-      <Pressable onPress={handlePress} style={styles.addWorkoutContainer}>
-        <Icon name="add-circle-outline" color="#fff" size={30} />
-        <Text style={styles.text}>Add a workout</Text>
-      </Pressable>
-      <WorkoutsList type="some" />
+      <View>
+        <Text style={styles.greeting}>Hello, {user.user.email}</Text>
+        <Button
+          onPress={handlePress}
+          text="Add a workout"
+          icon="add-circle-outline"
+        />
+        <WorkoutsList type="some" />
+      </View>
     </Wrapper>
   );
 };
@@ -35,17 +38,7 @@ const styles = StyleSheet.create({
     color: '#fff',
     textAlign: 'center',
     fontSize: 24,
-    marginTop: 20,
-  },
-  addWorkoutContainer: {
-    flexDirection: 'row',
-    backgroundColor: '#20639b',
-    alignItems: 'center',
-    justifyContent: 'center',
-    marginTop: 10,
-    width: 250,
-    padding: 5,
-    borderRadius: 5,
+    marginVertical: 20,
   },
   text: {
     color: '#fff',

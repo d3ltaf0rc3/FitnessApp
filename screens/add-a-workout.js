@@ -1,8 +1,8 @@
 import React, { useContext, useState } from 'react';
-import { View, StyleSheet, Text, Pressable } from 'react-native';
+import { View, StyleSheet, Text } from 'react-native';
 import Wrapper from '../components/Wrapper';
+import Button from '../components/Button';
 import { Picker } from '@react-native-community/picker';
-import Icon from 'react-native-vector-icons/Ionicons';
 import firestore from '@react-native-firebase/firestore';
 import UserContext from '../contexts/user-context';
 
@@ -50,16 +50,11 @@ const AddAWorkoutScreen = (props) => {
           <Picker.Item label="Quads workout" value="Quads" />
           <Picker.Item label="Hamstrings workout" value="Hamstrings" />
         </Picker>
-      </View>
-      <View style={styles.innerContainer}>
-        <Text style={styles.text}>Date:</Text>
-        <Text style={styles.date}>{date}</Text>
-      </View>
-      <View style={styles.innerContainer}>
-        <Pressable style={styles.btn} onPress={handlePress}>
-          <Icon name="add-circle-outline" color="#fff" size={32} />
-          <Text style={styles.text}>Add</Text>
-        </Pressable>
+        <View style={styles.innerContainer}>
+          <Text style={styles.text}>Date:</Text>
+          <Text style={styles.date}>{date}</Text>
+        </View>
+        <Button icon="add-circle-outline" onPress={handlePress} text="Add" />
       </View>
     </Wrapper>
   );
@@ -67,32 +62,24 @@ const AddAWorkoutScreen = (props) => {
 
 const styles = StyleSheet.create({
   picker: {
-    height: 40,
-    width: 250,
-    marginVertical: 10,
+    height: 50,
+    width: 280,
+    marginTop: 10,
     backgroundColor: '#797979',
     color: '#fff',
   },
   text: {
+    textAlign: 'center',
     color: '#fff',
     fontSize: 24,
   },
   date: {
+    textAlign: 'center',
     color: '#20639b',
     fontSize: 30,
   },
   innerContainer: {
-    marginTop: 50,
-    alignItems: 'center',
-  },
-  btn: {
-    flexDirection: 'row',
-    backgroundColor: '#20639b',
-    width: 250,
-    height: 50,
-    alignItems: 'center',
-    justifyContent: 'center',
-    borderRadius: 10,
+    marginVertical: 50,
   },
 });
 

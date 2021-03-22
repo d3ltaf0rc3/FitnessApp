@@ -46,7 +46,9 @@ const LoginScreen = () => {
           onChangeText={(text) => setPassword(text)}
           style={styles.input}
         />
-        <Button onPress={handlePress} text="Login" />
+        <View style={styles.btnContainer}>
+          <Button onPress={handlePress} text="Login" />
+        </View>
       </View>
     </Wrapper>
   );
@@ -59,7 +61,7 @@ const styles = StyleSheet.create({
   },
   input: {
     backgroundColor: '#fff',
-    height: 30,
+    height: 35,
     padding: 4,
     borderRadius: 3,
   },
@@ -67,6 +69,9 @@ const styles = StyleSheet.create({
     color: '#fff',
     marginVertical: 7,
     fontSize: 14,
+  },
+  btnContainer: {
+    marginTop: 35,
   },
 });
 

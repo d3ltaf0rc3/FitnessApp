@@ -24,7 +24,9 @@ const Workout = (props) => {
       <Image style={styles.image} source={{ uri: props.item.image }} />
       <Text style={styles.text}>{props.item.type} workout</Text>
       <Text style={styles.text}>Date: {date}</Text>
-      <Button onPress={handlePress} text="View Details" />
+      <View style={styles.btnContainer}>
+        <Button onPress={handlePress} text="View Details" />
+      </View>
     </View>
   );
 };
@@ -49,6 +51,10 @@ const styles = StyleSheet.create({
   text: {
     color: '#fff',
     fontSize: 20,
+  },
+  btnContainer: {
+    marginTop: 30,
+    alignSelf: 'stretch',
   },
 });
 
