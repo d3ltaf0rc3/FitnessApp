@@ -73,7 +73,7 @@ const styles = StyleSheet.create({
     fontSize: 30,
   },
   dataContainer: {
-    marginBottom: 170,
+    marginBottom: 350,
   },
   allData: {
     marginBottom: 80,
