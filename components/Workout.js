@@ -7,23 +7,21 @@ import Spinner from './Spinner';
 const Workout = (props) => {
   const navigation = useNavigation();
 
-  if (!props.item.createdAt) {
+  if (!props.workout.createdAt) {
     return <Spinner />;
   }
 
-  const date = props.item.createdAt.toDate().toISOString().split('T')[0];
-
   const handlePress = () => {
     navigation.navigate('View details', {
-      key: props.item.key,
+      workout: props.workout,
     });
   };
 
   return (
     <View style={styles.container}>
-      <Image style={styles.image} source={{ uri: props.item.image }} />
-      <Text style={styles.text}>{props.item.type} workout</Text>
-      <Text style={styles.text}>Date: {date}</Text>
+      <Image style={styles.image} source={{ uri: props.workout.image }} />
+      <Text style={styles.text}>{props.workout.type} workout</Text>
+      <Text style={styles.text}>Date: {props.workout.createdAt}</Text>
       <View style={styles.btnContainer}>
         <Button onPress={handlePress} text="View Details" />
       </View>

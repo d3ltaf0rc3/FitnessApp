@@ -20,10 +20,13 @@ const WorkoutsList = (props) => {
         const wrkts = [];
 
         querySnapshot.forEach((documentSnapshot) => {
-          wrkts.push({
-            ...documentSnapshot.data(),
-            key: documentSnapshot.id,
-          });
+          if (documentSnapshot?.data()) {
+            wrkts.push({
+              ...documentSnapshot.data(),
+              createdAt: documentSnapshot.data().createdAt.toDate().toISOString().split('T')[0],
+              key: documentSnapshot.id,
+            });
+          }
         });
         if (props.type === 'some') {
           setWorkouts(wrkts.slice(0, 5));
@@ -31,8 +34,7 @@ const WorkoutsList = (props) => {
           setWorkouts(wrkts);
         }
         setLoading(false);
-      }, (error) => console.log(error),
-      );
+      });
 
     return () => subscriber();
   }, [props.type, email]);
@@ -53,7 +55,7 @@ const WorkoutsList = (props) => {
           <FlatList
             style={props.type === 'all' ? styles.allData : styles.dataContainer}
             data={workouts}
-            renderItem={(item) => <Workout item={item.item} />}
+            renderItem={(item) => <Workout workout={item.item} />}
             keyExtractor={(item) => item.key}
           />
         </>
